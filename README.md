@@ -1,4 +1,4 @@
-# GIG Technological Innovation Hub — presentation website
+# GIG Egypt Technological Innovation Hub — presentation website
 
 A single-page, scroll-based presentation site. Eight sections, in the same order as the
 PowerPoint. All text is taken verbatim from the deck.
@@ -8,7 +8,7 @@ PowerPoint. All text is taken verbatim from the deck.
 | File | What it is | Required |
 |---|---|---|
 | `index.html` | The whole site — HTML, CSS and JavaScript in one file | Yes |
-| `gig-logo.png` | GIG Egypt logo, used in the header and on the closing section | Yes |
+| `gig-logo.png` | GIG Egypt logo (white version), used in the header and on the closing section | Yes |
 | `README.md` | This guide | No — do not upload |
 
 Keep `index.html` and `gig-logo.png` **in the same folder**. The page looks for the logo

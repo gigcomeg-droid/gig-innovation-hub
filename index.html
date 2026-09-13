@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="GIG Technological Innovation Hub — a company-wide innovation platform that turns employee insight into measurable customer and business impact.">
+<meta name="description" content="GIG Egypt Technological Innovation Hub — a company-wide innovation platform that turns employee insight into measurable customer and business impact.">
 <meta name="theme-color" content="#08041C">
 <link rel="icon" href="gig-logo.png">
-<meta property="og:title" content="GIG Technological Innovation Hub">
+<meta property="og:title" content="GIG Egypt Technological Innovation Hub">
 <meta property="og:description" content="A company-wide innovation platform that turns employee insight into measurable customer and business impact.">
 <meta property="og:type" content="website">
-<title>GIG Technological Innovation Hub</title>
+<title>GIG Egypt Technological Innovation Hub</title>
 <style>
   html{color-scheme:dark}
   body{margin:0}
@@ -89,12 +89,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   backdrop-filter:blur(10px);
 }
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
-.plate{
-  background:var(--white);border-radius:12px;padding:9px 13px;
-  box-shadow:0 10px 30px rgba(3,1,14,.55), 0 0 0 1px rgba(255,255,255,.14);
-  flex:0 0 auto;
-}
-.plate img{height:26px;width:auto}
+.plate{flex:0 0 auto;display:block}
+.plate img{height:30px;width:auto;filter:drop-shadow(0 4px 18px rgba(37,169,224,.35))}
 .brand-tag{
   font-size:10px;letter-spacing:.16em;color:var(--text-dim);
   line-height:1.4;white-space:nowrap;
@@ -313,9 +309,11 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 .bar i{display:block;height:100%;width:0;border-radius:5px;transition:width 1.3s var(--e)}
 
 /* ============ 5 · RECOGNITION ============ */
+#s5 h2{font-size:clamp(22px,2.6vw,36px)}
+#s5 .lede{font-size:clamp(12.5px,1.05vw,15px)}
 .triad{display:flex;flex-wrap:wrap;gap:clamp(10px,1.4vw,20px);margin:clamp(16px,2.4vh,28px) 0 0}
 .tri{
-  flex:1 1 170px;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;
+  flex:1 1 170px;padding:13px 18px;border-radius:16px;position:relative;overflow:hidden;
   border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.015));
   font-size:clamp(13px,1.35vw,19px);font-weight:700;letter-spacing:.12em;
 }
@@ -325,6 +323,20 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 .tri:nth-child(1)::after{background:linear-gradient(90deg,var(--cyan),transparent)}
 .tri:nth-child(2)::after{background:linear-gradient(90deg,var(--peri),transparent)}
 .tri:nth-child(3)::after{background:linear-gradient(90deg,var(--orange),transparent)}
+.closerow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;
+  align-items:stretch;margin-top:clamp(12px,2vh,24px)}
+.closerow .footnote,.closerow .reward{margin-top:0}
+.reward{
+  padding:14px 20px;border-radius:14px;
+  display:flex;align-items:center;gap:14px;
+  border:1px solid rgba(37,169,224,.42);
+  background:linear-gradient(100deg,rgba(37,169,224,.20),rgba(128,148,230,.06) 72%);
+  font-size:clamp(12.5px,1.08vw,15.5px);font-weight:700;letter-spacing:-.01em;color:#F2F5FF;
+}
+.reward::before{
+  content:"";flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--cyan);
+  box-shadow:0 0 0 4px rgba(37,169,224,.22),0 0 16px rgba(37,169,224,.85);
+}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,.9vw,14px);margin-top:clamp(12px,1.8vh,20px)}
 .card{
   padding:13px 16px;border-radius:16px;border:1px solid var(--line);
@@ -401,8 +413,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .closetag{font-size:clamp(13px,1.7vw,24px);font-weight:700;letter-spacing:-.01em;color:#D6DDF4}
 .closelabel{font-size:11px;letter-spacing:.26em;color:var(--text-dim)}
-.plate.big{padding:16px 22px}
-.plate.big img{height:44px}
+.plate.big img{height:clamp(46px,5.6vw,64px);filter:drop-shadow(0 6px 26px rgba(37,169,224,.4))}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1080px){
@@ -410,6 +421,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   .droplet{max-width:270px;margin:0}
   .plat,.evalgrid,.lt,.head-grid{grid-template-columns:1fr}
   .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .closerow{grid-template-columns:1fr}
   .progress{display:none}
 }
 @media (max-width:820px){
@@ -455,7 +467,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 <header class="topbar">
   <div class="brand">
     <div class="plate"><img src="gig-logo.png" alt="GIG Egypt"></div>
-    <div class="brand-tag"><b>GIG Technological</b>Innovation Hub</div>
+    <div class="brand-tag"><b>GIG Egypt</b>Technological Innovation Hub</div>
   </div>
   <nav class="topnav" id="topnav" aria-label="Sections"></nav>
 </header>
@@ -473,8 +485,9 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
     <div class="wrap hero">
       <div class="hero-title">
         <h1>
-          <span class="l"><span class="rv" style="--d:60ms">GIG Technological</span></span>
-          <span class="l"><span class="rv kicker" style="--d:200ms">Innovation Hub</span></span>
+          <span class="l"><span class="rv" style="--d:60ms">GIG Egypt</span></span>
+          <span class="l"><span class="rv" style="--d:160ms">Technological</span></span>
+          <span class="l"><span class="rv kicker" style="--d:260ms">Innovation Hub</span></span>
         </h1>
         <div class="hero-rule rv mask" style="--d:380ms"></div>
         <p class="lede rv" style="--d:460ms">A company-wide innovation platform that turns employee insight into measurable customer and business impact.</p>
@@ -518,7 +531,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   <!-- ==================== 2 · PLATFORM ==================== -->
   <section class="sec" id="s2" data-label="Platform" aria-label="Platform overview">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">Turn employee insight into measurable business value</h2>
         <p class="lede rv" style="--d:180ms">A structured pipeline converts day-to-day knowledge of customers, operations and the market into practical solutions.</p>
@@ -527,7 +540,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
       <div class="plat">
         <div>
           <p class="statement rv" style="--d:260ms"><b>One platform.<br>Four disciplines.</b></p>
-          <p class="lede rv" style="--d:340ms">Built to improve customer experience, accelerate digital transformation, support ESG priorities and create sustainable value.</p>
+          <p class="lede rv" style="--d:340ms">Built to improve Customer Experience, accelerate Digital Transformation, support ESG Priorities and create Sustainable Value.</p>
           <div class="footnote rv" style="--d:420ms">The outcome: a repeatable engine for customer-focused, digital, ESG and growth initiatives.</div>
         </div>
 
@@ -549,7 +562,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   <!-- ==================== 3 · EIGHT STAGES ==================== -->
   <section class="sec" id="s3" data-label="Eight stages" aria-label="Eight-stage path">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">A disciplined eight-stage path takes ideas to implementation</h2>
         <p class="lede rv" style="--d:180ms">Clear governance, evidence-based selection and operational ownership reduce the distance between a good idea and real impact.</p>
@@ -587,7 +600,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   <!-- ==================== 4 · EVALUATION ==================== -->
   <section class="sec" id="s4" data-label="Evaluation" aria-label="Evaluation framework">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">Evaluation Framework</h2>
         <p class="lede rv" style="--d:180ms">A transparent 100-point framework balances customer outcomes, originality, execution confidence and scale.</p>
@@ -608,7 +621,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   <!-- ==================== 5 · RECOGNITION ==================== -->
   <section class="sec" id="s5" data-label="Recognition" aria-label="Recognition model">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">Recognition should build capability—not just reward participation</h2>
         <p class="lede rv" style="--d:180ms">The strongest incentive is the opportunity to develop an idea, gain exposure and help make it successful.</p>
@@ -619,18 +632,21 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
         <div class="tri rv" style="--d:320ms">EXPOSURE</div>
         <div class="tri rv" style="--d:400ms">OPPORTUNITY</div>
       </div>
-      <p class="lede rv" style="--d:460ms;margin-top:14px">Give employees a visible role in turning the strongest concepts into working solutions.</p>
+      <p class="lede rv" style="--d:460ms;margin-top:12px">Give employees a visible role in turning the strongest concepts into working solutions.</p>
 
       <div class="cards" id="recCards"></div>
 
-      <div class="footnote rv" style="--d:900ms">Meaningful recognition = seeing an idea implemented and contributing to its success.</div>
+      <div class="closerow">
+        <div class="footnote rv" style="--d:900ms">Meaningful recognition = seeing an idea implemented and contributing to its success.</div>
+        <div class="reward rv" style="--d:980ms">The brightest idea will receive one or all of the above rewards.</div>
+      </div>
     </div>
   </section>
 
   <!-- ==================== 6 · CAIRO ICT ==================== -->
   <section class="sec" id="s6" data-label="Cairo ICT" aria-label="Cairo ICT credibility">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">Cairo ICT can convert internal innovation into external credibility</h2>
         <p class="lede rv" style="--d:180ms">Selected concepts and prototypes can give employees direct exposure to technology leaders, partners and industry stakeholders.</p>
@@ -655,7 +671,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   <!-- ==================== 7 · LONG-TERM SYSTEM ==================== -->
   <section class="sec" id="s7" data-label="Innovation system" aria-label="Long-term innovation system">
     <div class="wrap">
-      <p class="eyebrow rv">GIG Technological Innovation Hub</p>
+      <p class="eyebrow rv">GIG Egypt Technological Innovation Hub</p>
       <div class="head-grid">
         <h2 class="rv" style="--d:80ms">The Hub creates a repeatable path from ideas to group visibility</h2>
         <p class="lede rv" style="--d:180ms">The Challenge should operate as an annual innovation system—not a one-off competition.</p>
@@ -706,7 +722,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
       <h2 class="thanks rv" style="--d:60ms">Thank<br><span class="y">You</span></h2>
       <div class="hero-rule rv mask" style="--d:300ms;margin:0"></div>
       <p class="closetag rv" style="--d:380ms">Create locally. Prove the impact. Showcase globally.</p>
-      <p class="closelabel rv" style="--d:460ms">GIG Technological Innovation Hub</p>
+      <p class="closelabel rv" style="--d:460ms">GIG Egypt Technological Innovation Hub</p>
       <div class="plate big rv" style="--d:540ms"><img src="gig-logo.png" alt="GIG Egypt"></div>
     </div>
   </section>
@@ -727,18 +743,18 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
     ["02","GOVERN &amp; EVALUATE","Establish a cross-functional committee with representatives from Digital Transformation, IT, HR, Compliance, and the Technical Department.|Evaluate ideas based on impact, innovation, feasibility, and scalability, then shortlist the top 5."],
     ["03","DEVELOP","Refine selected concepts into business cases and test plans."],
     ["04","PROTOTYPE","Build a minimum viable solution for operational review."],
-    ["05","The Idea Owner Pitches and Presents the Idea","Present the top- 5 ideas to the MD (Mr. Alaa) and the GIG Group Digital and AI Committee. To chose 1 of them "],
+    ["05","Pitches the Idea","Present the top- 5 ideas to the MD (Mr. Alaa) and the GIG Group Digital and AI Committee. To chose 1 of them ","The Idea Owner Pitches and Presents the Idea"],
     ["06","PILOT","Test with real users and operating teams; capture evidence."],
     ["07","IMPLEMENT","Launch the strongest solutions and measure results."],
     ["08","RECOGNIZE &amp; SCALE","Reward contributors, build capability and expand what works."]
   ];
   var CRIT = [
     ["Customer impact",30,"#25A9E0"],
-    ["Innovation",20,"#8094E6"],
+    ["Innovation",15,"#8094E6"],
     ["Feasibility",20,"#4B6BD8"],
     ["Business value",15,"#F48B38"],
     ["ESG impact",10,"#4FB983"],
-    ["Scalability",5,"#DDE1EE"]
+    ["Scalability",10,"#DDE1EE"]
   ];
   var REC = [
     ["01","Conferences","Local and international technology, AI, innovation and InsurTech events"],
@@ -779,7 +795,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
     if (sdName.dataset.k === s[0]) return;
     sdName.dataset.k = s[0];
     $$(".node", nodesEl).forEach(function(n,j){ n.setAttribute("aria-selected", j===i?"true":"false"); });
-    sdNum.textContent=s[0]; sdName.innerHTML=s[1];
+    sdNum.textContent=s[0]; sdName.innerHTML=s[3]||s[1];
     sdText.innerHTML = s[2].split("|").map(function(x){return "<span>"+x+"</span>";}).join("");
     if (G && !RM) G.fromTo([sdNum,sdName,sdText],{opacity:0,y:8},{opacity:1,y:0,duration:.45,stagger:.04,ease:"power2.out",overwrite:true});
   }
