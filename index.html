@@ -90,12 +90,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
 .plate{flex:0 0 auto;display:block}
-.plate img{height:30px;width:auto;filter:drop-shadow(0 4px 18px rgba(37,169,224,.35))}
+.plate img{height:clamp(40px,3.4vw,52px);width:auto;filter:drop-shadow(0 5px 22px rgba(37,169,224,.38))}
 .brand-tag{
-  font-size:10px;letter-spacing:.16em;color:var(--text-dim);
-  line-height:1.4;white-space:nowrap;
+  font-size:11px;letter-spacing:.15em;color:var(--text-dim);
+  line-height:1.45;white-space:nowrap;
 }
-.brand-tag b{display:block;color:var(--white);font-weight:700;letter-spacing:.18em}
+.brand-tag b{display:block;color:var(--white);font-weight:700;letter-spacing:.14em;font-size:12px}
 
 .topnav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
 .topnav button{
@@ -152,7 +152,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   scroll-snap-align:start;scroll-snap-stop:always;
   min-height:100svh;
   display:flex;align-items:center;
-  padding:104px var(--pad) 74px;
+  padding:124px var(--pad) 74px;
   padding-right:calc(var(--pad) + var(--rail));
   position:relative;
 }
@@ -250,11 +250,12 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 .step p{margin:5px 0 0;color:var(--text-dim);font-size:clamp(11.5px,.95vw,13.5px);line-height:1.6}
 
 /* ============ 3 · EIGHT STAGES ============ */
-.stages{margin-top:clamp(18px,3vh,36px)}
+.stages{margin-top:clamp(18px,3vh,36px);position:relative}
 .track{position:relative;padding:0 0 6px}
 .track svg{width:100%;height:110px;display:block;overflow:visible}
-.nodes{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-top:-58px;position:relative;z-index:2;
-  align-items:start;padding-bottom:6px}
+.nodes{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-top:-84px;position:relative;z-index:2;
+  align-items:start;padding-bottom:34px}
+
 .node{
   text-align:center;padding:0 2px;background:none;
   display:flex;flex-direction:column;align-items:center;gap:9px;
@@ -428,7 +429,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   :root{--rail:0px}
   body{font-size:14px}
   .deck{scroll-snap-type:y proximity}
-  .sec{min-height:auto;padding:96px var(--pad) 64px}
+  .sec{min-height:auto;padding:112px var(--pad) 64px}
   #s1,#s8{min-height:100svh}
   .topnav{display:none}
   .hbar{display:block}
@@ -915,6 +916,50 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
          yoyo:false,onRepeat:function(){G.set(pulse,{opacity:0});G.to(pulse,{opacity:1,duration:.3});}},"+=.1");
   }
 
+  /* put each stage bead on the curve itself */
+  function yAtX(path, vx){
+    var L=path.getTotalLength(), lo=0, hi=L, pt;
+    for (var i=0;i<24;i++){
+      var mid=(lo+hi)/2;
+      pt=path.getPointAtLength(mid);
+      if (pt.x < vx) lo=mid; else hi=mid;
+    }
+    return path.getPointAtLength((lo+hi)/2).y;
+  }
+  function tyOf(el){
+    var t=getComputedStyle(el).transform;
+    if(!t||t==="none") return 0;
+    var m=t.match(/matrix\(([^)]+)\)/);
+    if(m) return parseFloat(m[1].split(",")[5])||0;
+    var m3=t.match(/matrix3d\(([^)]+)\)/);
+    if(m3) return parseFloat(m3[1].split(",")[13])||0;
+    return 0;
+  }
+  function placeStageNodes(){
+    var track=document.querySelector(".track"),
+        svg=document.querySelector(".track svg"),
+        path=document.getElementById("stagePathBg"),
+        nodes=$$(".node", nodesEl);
+    if(!track||!svg||!path||!nodes.length) return;
+    if (getComputedStyle(svg).display==="none"){
+      nodes.forEach(function(n){ n.style.transform=""; });
+      return;
+    }
+    var tr=track.getBoundingClientRect();
+    if(!tr.width) return;
+    // strip any in-flight reveal transform so the maths is layout-accurate
+    var svgTop=tr.top-tyOf(track);
+    nodes.forEach(function(n){
+      var bead=n.querySelector(".bead"),
+          br=bead.getBoundingClientRect(),
+          ny=tyOf(n);
+      var vx=((br.left+br.width/2)-tr.left)/tr.width*1200;
+      var vy=yAtX(path, Math.max(40, Math.min(1160, vx)));
+      var beadCenter=(br.top+br.height/2)-ny;
+      n.style.transform="translateY("+((svgTop+vy)-beadCenter).toFixed(1)+"px)";
+    });
+  }
+
   /* section 3 path draw */
   var tlStage;
   function animStagePath(){
@@ -922,11 +967,13 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
     if(!p) return;
     var L=p.getTotalLength();
     p.style.strokeDasharray=L; p.style.strokeDashoffset=L;
+    placeStageNodes();
     if (RM || !G){
       p.style.strokeDashoffset=0;
       var e=p.getPointAtLength(L); tr.setAttribute("cx",e.x); tr.setAttribute("cy",e.y);
       return;
     }
+    placeStageNodes();
     if (tlStage) tlStage.kill();
     G.set(fl,{opacity:0});
     var o={v:0};
@@ -1038,6 +1085,11 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 
   playSection(secs[0]);
   setCurrent(0);
+  placeStageNodes();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeStageNodes);
+  var stageRz; window.addEventListener("resize", function(){
+    clearTimeout(stageRz); stageRz=setTimeout(placeStageNodes, 160);
+  });
   setTimeout(function(){ secs.forEach(function(s){
     var r=s.getBoundingClientRect();
     if (r.top < window.innerHeight && r.bottom > 0) playSection(s);
