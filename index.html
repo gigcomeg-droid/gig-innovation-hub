@@ -266,7 +266,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   text-align:center;padding:0 2px;background:none;
   display:flex;flex-direction:column;align-items:center;gap:9px;
 }
-.node .bead{
+.bead{
   width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
   font-size:12px;font-weight:700;color:var(--deep);
   background:radial-gradient(circle at 34% 30%,#E3B49A,#D28C64 62%);
@@ -393,6 +393,8 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 }
 
 /* ============ 6 · INNOVATION SYSTEM ============ */
+#s3 .head-grid .lede{margin-top:calc(clamp(23px,3.15vw,44px) * 1.16)}
+@media (max-width:1080px){ #s3 .head-grid .lede{margin-top:18px} }
 #s6 h2{font-size:clamp(19px,2.25vw,31px)}
 #s6 .lede{font-size:clamp(12px,1vw,14.5px)}
 #s6 .quote{font-size:clamp(12.5px,1.25vw,18px);padding:clamp(12px,1.5vw,20px);margin-top:clamp(10px,1.6vh,18px)}
@@ -408,11 +410,24 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 
 /* ============ 7 · PIPELINE ============ */
 .pipe{margin-top:clamp(14px,2.4vh,30px)}
-.pipe svg{width:100%;height:150px;display:block;overflow:visible}
-.pipe-labels{position:relative;height:44px;margin-top:-14px}
-.pl{position:absolute;top:0;transform:translateX(-50%);width:16%;
-  text-align:center;font-size:9.6px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);line-height:1.4}
-.pl b{display:none}
+.pipe-inner{position:relative;height:196px}
+.pipe svg{position:absolute;left:0;top:0;width:100%;height:120px;display:block;overflow:visible}
+.pnodes{position:absolute;inset:0;pointer-events:none;z-index:2}
+/* one node = bead + label, same stack and gap as the eight-stage nodes */
+.pnode{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;
+  align-items:center;gap:9px;width:17%}
+.pnode .lbl{font-size:9.3px;letter-spacing:.1em;color:var(--text-dim);
+  line-height:1.4;max-width:19ch;text-wrap:balance;text-align:center;text-transform:uppercase;
+  transition:color .35s var(--e)}
+.pnodes{pointer-events:auto}
+.pnode{cursor:default}
+.pnode .bead{transition:transform .45s var(--e),box-shadow .45s var(--e),background .45s var(--e)}
+.pnode:hover .bead{
+  transform:translateY(-6px) scale(1.1);
+  background:radial-gradient(circle at 34% 30%,#EFD2C0,#D28C64 70%);
+  box-shadow:0 0 0 1px rgba(210,140,100,1),0 0 30px rgba(210,140,100,.6);
+}
+.pnode:hover .lbl{color:var(--white)}
 .lt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(18px,3vw,44px);margin-top:clamp(16px,2.6vh,32px);align-items:start}
 .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,14px)}
 .metric{padding:14px 14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--glass);
@@ -464,8 +479,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   .track svg{display:none}
   .stage-detail{grid-template-columns:1fr;gap:8px}
   .pipe-scroll{overflow-x:auto}
-  .pipe svg{min-width:620px}
-  .pipe-labels{min-width:620px}
+  .pipe-inner{min-width:700px}
   .scrollcue{display:none}
   .vi{width:min(46vh,300px);right:-16vw;opacity:.09}
 }
@@ -659,6 +673,8 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 
       <div class="pipe rv" style="--d:300ms">
         <div class="pipe-scroll">
+         <div class="pipe-inner">
+          <div class="pnodes" id="pipeNodesHtml"></div>
           <svg viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="pipeG" x1="0" y1="0" x2="1" y2="0">
@@ -672,10 +688,9 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
             <path id="pipeFlow" d="M60 100 C 260 100 240 44 440 44 S 720 108 900 78 S 1080 40 1140 40"
                   fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"
                   stroke-dasharray="14 250" opacity=".8"/>
-            <g id="pipeNodes"></g>
           </svg>
+         </div>
         </div>
-        <div class="pipe-labels" id="pipeLabels"></div>
       </div>
 
       <div class="lt">
@@ -730,8 +745,8 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   ];
   var CRIT = [
     ["Customer Impact",30,"#8094E6"],
-    ["Innovation",15,"#6BCABA"],
     ["Feasibility",20,"#D28C64"],
+    ["Innovation",15,"#6BCABA"],
     ["Business Value",15,"#FF7366"],
     ["ESG Impact",10,"#7569BA"],
     ["Scalability",10,"#E5E5E5"]
@@ -746,7 +761,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   ];
   var PIPE = [
     ["1","Employee<br>idea"],["2","Technology &amp;<br>Innovation Hub"],["3","Pilot"],["4","Implementation"],
-    ["5","Cairo ICT"],["6","GIG Group Digital<br>&amp; AI Committee"],["7","Fairfax AI Committee /<br>Connect magazine"]
+    ["5","Cairo ICT"],["6","GIG Group Digital<br>&amp; AI Committee"],["7","Fairfax /<br>Connect"]
   ];
   var METRICS = [
     ["IDEAS","Piloted","#8094E6"],
@@ -833,28 +848,27 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   });
 
   /* ---------- BUILD: pipeline ---------- */
-  var pipeLine=$("#pipeLine"), pipeNodes=$("#pipeNodes"), pipeLabels=$("#pipeLabels");
+  var pipeLine=$("#pipeLine"), pipeNodes=$("#pipeNodesHtml");
   var plen = pipeLine.getTotalLength();
+  var PIPE_PTS = [];
   PIPE.forEach(function(p,i){
     var pt = pipeLine.getPointAtLength(plen*(i/(PIPE.length-1)));
-    var g=document.createElementNS(NS,"g");
-    var halo=document.createElementNS(NS,"circle");
-    halo.setAttribute("cx",pt.x);halo.setAttribute("cy",pt.y);halo.setAttribute("r",17);
-    halo.setAttribute("fill","rgba(210,140,100,.16)");
-    var c=document.createElementNS(NS,"circle");
-    c.setAttribute("cx",pt.x);c.setAttribute("cy",pt.y);c.setAttribute("r",11);
-    c.setAttribute("fill","#D28C64");c.setAttribute("stroke","#E3B49A");c.setAttribute("stroke-width",1.6);
-    var t=document.createElementNS(NS,"text");
-    t.setAttribute("x",pt.x);t.setAttribute("y",pt.y+4);t.setAttribute("text-anchor","middle");
-    t.setAttribute("fill","#1F0F4D");t.setAttribute("font-size","11");t.setAttribute("font-family","Verdana, sans-serif");
-    t.setAttribute("font-weight","700");t.textContent=p[0];
-    g.appendChild(halo);g.appendChild(c);g.appendChild(t);
-    pipeNodes.appendChild(g);
-    var l=document.createElement("div");
-    l.className="pl"; l.style.left=((pt.x/1200)*100).toFixed(2)+"%";
-    l.innerHTML=p[1];
-    pipeLabels.appendChild(l);
+    PIPE_PTS.push(pt);
+    var n=document.createElement("div");
+    n.className="pnode";
+    n.style.left=((pt.x/1200)*100).toFixed(2)+"%";
+    n.innerHTML='<span class="bead num">'+p[0]+'</span><span class="lbl">'+p[1]+'</span>';
+    pipeNodes.appendChild(n);
   });
+  /* the svg is drawn with preserveAspectRatio="none", so place each node
+     against its rendered height, not the viewBox */
+  function placePipeNodes(){
+    var svg=$(".pipe svg"); if(!svg) return;
+    var h=svg.getBoundingClientRect().height; if(!h) return;
+    $$(".pnode", pipeNodes).forEach(function(n,i){
+      n.style.top=(((PIPE_PTS[i].y/150)*h)-22).toFixed(1)+"px";
+    });
+  }
 
   /* ---------- BUILD: metrics ---------- */
   var mEl=$("#metrics");
@@ -867,7 +881,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 
   /* ---------- REVEAL ---------- */
   var revealed = {};
-  var ANIM = {s2:animPlatform, s3:animStagePath, s4:animEval, s7:animPipe};
+  var ANIM = {s2:animPlatform, s3:animStagePath, s4:animEval, s6:animPipe};
   function playSection(sec){
     if (!revealed[sec.id]){
       revealed[sec.id] = true;
@@ -1000,6 +1014,7 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
   /* section 7 pipeline flow */
   var tlPipe;
   function animPipe(){
+    placePipeNodes();
     var line=$("#pipeLine"), flow=$("#pipeFlow");
     var L=line.getTotalLength();
     line.style.strokeDasharray=L; line.style.strokeDashoffset=L;
@@ -1009,9 +1024,9 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
     G.set(flow,{opacity:0});
     tlPipe = G.timeline({delay:.3});
     tlPipe.to(line,{strokeDashoffset:0,duration:2,ease:"power2.inOut"})
-      .fromTo($$("#pipeNodes g"),{opacity:0,scale:.5,transformOrigin:"center"},
+      .fromTo($$(".pnodes .bead"),{opacity:0,scale:.45},
         {opacity:1,scale:1,duration:.5,stagger:.17,ease:"back.out(2.2)"},"-=1.7")
-      .fromTo($$(".pipe-labels .pl"),{y:8,opacity:0},
+      .fromTo($$(".pnodes .lbl"),{y:8,opacity:0},
         {y:0,opacity:1,duration:.4,stagger:.17,ease:"power2.out"},"-=1.65")
       .set(flow,{opacity:.8,attr:{"stroke-dasharray":"16 "+L}})
       .fromTo(flow,{attr:{"stroke-dashoffset":L}},
@@ -1064,10 +1079,10 @@ h2{font-size:clamp(23px,3.15vw,44px);line-height:1.16}
 
   playSection(secs[0]);
   setCurrent(0);
-  placeStageNodes();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeStageNodes);
+  placeStageNodes(); placePipeNodes();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ placeStageNodes(); placePipeNodes(); });
   var stageRz; window.addEventListener("resize", function(){
-    clearTimeout(stageRz); stageRz=setTimeout(placeStageNodes, 160);
+    clearTimeout(stageRz); stageRz=setTimeout(function(){ placeStageNodes(); placePipeNodes(); }, 160);
   });
   setTimeout(function(){ secs.forEach(function(s){
     var r=s.getBoundingClientRect();
