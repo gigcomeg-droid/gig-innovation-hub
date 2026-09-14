@@ -1,19 +1,28 @@
-# GIG Egypt Technological Innovation Hub — presentation website
+# GIG-Egypt Technology & Innovation Hub — presentation website
 
-A single-page, scroll-based presentation site. Eight sections, in the same order as the
-PowerPoint. All text is taken verbatim from the deck.
+A single-page, scroll-based presentation site. Seven sections. The text follows the deck word for word, apart from the proofreading
+corrections listed under **Copy** below.
 
 ## What's in this folder
 
 | File | What it is | Required |
 |---|---|---|
 | `index.html` | The whole site — HTML, CSS and JavaScript in one file | Yes |
-| `gig-logo.png` | GIG Egypt logo (white version), used in the header and on the closing section | Yes |
+| `gig-logo.png` | GIG-Egypt logo (white version), used in the header and on the closing section | Yes |
 | `gig-shell.png` | GIG shell mark, used as the ambient brand graphic | Yes |
+| `GIG-Egypt-Technology-and-Innovation-Hub.pdf` | Print edition — 8 pages, A4 landscape | No — not part of the site |
+| `print-source/` | The HTML the PDF is generated from, if you ever need to re-export | No — not part of the site |
 | `README.md` | This guide | No — do not upload |
 
 Keep `index.html`, `gig-logo.png` and `gig-shell.png` **in the same folder**. The page looks
 for both images next to itself, so if you move the HTML without them they will not appear.
+
+### Copy
+
+All wording on both the site and the PDF is the approved copy supplied by GIG-Egypt
+(revision of 14 September 2026). The earlier PowerPoint wording has been replaced
+throughout; the Cairo ICT section was removed and its quotation moved onto the
+Innovation System section.
 
 ### Colour
 
@@ -21,6 +30,18 @@ Every colour on the site comes from the GIG Brand & Identity Guidelines: Indigo 
 Deep Blue #1F0F4D, Pearl #E5E5E5, Rose-Gold #D28C64, Ocean #8094E6, Sunrise #FF7366,
 Seafoam #6BCABA and white, plus tints and shades of Indigo and Deep Blue for depth.
 They are declared once as CSS variables at the top of `index.html` under `:root`.
+
+## The print edition
+
+`GIG-Egypt-Technology-and-Innovation-Hub.pdf` is the same seven sections laid out for paper:
+A4 landscape, one section per page, in a light treatment — white and Pearl ground with
+Indigo type and Rose-Gold accents, the second background option in the guidelines. It uses
+a fraction of the ink of the on-screen version and photocopies cleanly. The text is
+selectable and searchable, not a picture of the page.
+
+To re-export after editing: open `print-source/print.html` in Chrome, press Ctrl+P
+(Cmd+P on a Mac), choose **Save as PDF**, set Layout to **Landscape**, Paper size to
+**A4**, Margins to **None**, and tick **Background graphics**.
 
 ## Test it before uploading
 
